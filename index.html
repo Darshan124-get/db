@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS LAB PROGRAMS</title>
+</head>
+<body>
+ <h2>1. Execute DDL commands  </h2>
+    <h3>Query </h3>
+    <p style="border: 2px solid black; padding: 10px;">
+    a) &nbsp;  
+        create table student (regno number(5),name varchar2(10) , dob date , marks number(10)); <br> 
+       
+    b) &nbsp;  
+        alter table student drop column marks;  <br>
+       
+    c) &nbsp;  
+        alter table student modify regno varchar2(5); <br> 
+       
+    d)&nbsp;   
+        alter table student add phno number(10); <br> 
+        e) &nbsp;  
+        insert into student values (100,'AAA','01-jan-2000',9999);   <br>      
+        insert into student values (101,'BBB','01-feb-2001',8888);<br>
+            insert into student values (102,'CCC','01-mar- 2002',7777);   <br>     
+            insert into student values (103,'DDD','01-apr-2003',6666);   <br>     
+            insert into student values (104,'EEE','01-may-2004',5555);  <br>
+        f) &nbsp;  
+            select*from student; <br>
+    </p>
+
+
+    <h2>2. Execute DML commands  </h2>
+    <h3>Query </h3>
+    <p style="border: 2px solid black; padding: 10px;">
+        a) &nbsp;
+create table library (bid number(3)primary key,title varchar2(10),author varchar2(10),    
+publisher varchar2(10),"year of pub" number(4),price number(3));  <br>
+b) &nbsp; 
+insert into library values(100,'c-prog','shrikanth','skywords',2015,180);  <br>   
+insert into library values(101,'c++-prog','shrikanth','skywords',2016,70);  <br>   
+insert into library values(103,'java-prog','james','himalya',2017,250);  <br>  
+insert into library values(104,'data-str','rajesh','skywords',2018,320);   <br>  
+insert into library values(105,'dot-net','kavya','himalya',2019,280); <br>    
+insert into library values(106,'dbms','kokhila','shiva',2020,290);  <br>
+insert 
+into library values(107,'python','james','skywords',2021,380); <br>
+
+c)  &nbsp;
+select*from library; <br>  
+ 
+d) &nbsp; 
+select distinct publisher from library;  <br> 
+ 
+e)  &nbsp;
+update library set price=price+((price*5)/100); <br>  
+ 
+f) &nbsp; 
+delete from library where author='james';  <br> 
+ 
+g)  &nbsp;
+select*from library order by title asc; <br>  
+  
+h) &nbsp; 
+select*from library where price between 100 and 300; <br> 
+
+    </p>
+
+
+    <h2>3. Execute DCL and group functions. </h2>
+    <h3>Query</h3>
+
+    <p style="border: 2px solid black; padding: 10px;">
+
+        a)&nbsp;  
+        create table employee(empno number(3)primary key,ename varchar2(10),dept 
+        varchar2(10),salary number(5),dob date,branch varchar2(10));  <br>
+
+        b) &nbsp; 
+insert into employee values(101,'ashok','sales',27000,'01-jan-2022','tumkur'); <br>       
+insert into employee values(102,'raju','accounts',25000,'01-feb-2022','mysore');<br>        
+insert into employee values(103,'ramya','sales',29000,'01-mar-2022','tumkur');  <br>      
+insert into employee values(104,'ashok','sales',37000,'01-apr-2022','banglore'); <br>       
+insert into employee values(105,'radhika','marketing',23000,'01-may-2022','tumkur'); <br>       
+insert into employee values(106,'ashok','sales',17000,'01-jun-2022','mysore'); <br>
+insert into employee values(107,'ramya','accounts',27000,'01-jul-2022','tumkur');<br>
+insert into employee values(108,'rakshita','sales',29000,'01-aug-2022','bangalore');  <br>
+insert  into employee values(109,'ashok','marketing',24000,'01-sep-2022','tumkur');  <br>
+
+c)  &nbsp;
+select*from employee; <br> 
+
+d) &nbsp;     
+  select avg (salary)from  employee; <br>
+
+e) &nbsp; 
+   select count(*)from employee; <br>
+
+  f) &nbsp; 
+  select distinct dept,count(*)from employee group by dept; <br> 
+
+  g) &nbsp; 
+  select ename,count(*),sum(salary)from employee group by ename; <br> 
+
+  h)  &nbsp;
+     select*from employee where salary>25000;  <br>
+
+  i)  &nbsp;
+  commit;  <br>  
+   insert into employee values(110,'kavya','marketing',25000,'01-oct2022','tumkur'); <br>  
+  roll back; <br> 
+
+    </p>
+
+
+    <h2>4. Implement Nested Queries:  </h2>
+    <h3>Query</h3>
+    <p style="border: 2px solid black; padding: 10px;">
+        a)&nbsp;
+        create table item(itemcode number(3)primary key,name varchar2(10),price  number(3));<br>   
+        create table purchase(itemcode number(3)references item,qty number(3));  <br>
+
+        b)  &nbsp;
+       &nbsp; insert into item values(100,'rice',50); <br>
+
+       &nbsp; insert into item values(101,'soap',35); <br>
+
+       &nbsp; insert into item values(102,'paste',25);  <br> 
+  
+       &nbsp; insert into item values(103,'sugar',40); <br>  
+    
+      &nbsp;  insert into item values(104,'oil',20); <br>  
+    
+       &nbsp; insert into item values(105,'oil',100); <br>
+       <br>
+
+    &nbsp; insert into purchase values(100,10); <br> 
+  
+     &nbsp; insert into purchase values(102,5); <br> 
+  
+     &nbsp; insert into purchase values(104,5); <br> 
+  
+    &nbsp;  insert into purchase values(105,3); <br> 
+    <br>
+
+      c)&nbsp; 
+      select*from item;<br>
+      select*from purchase;<br>
+      d) &nbsp; 
+      select*from item where itemcode in(select itemcode from purchase); <br>
+      e)  &nbsp;
+      select*from item where itemcode not in(select itemcode from  purchase); <br>
+    </p>
+
+    <h2>5. Create views for a particular table the railway reservation system database consists of the 
+        following table  </h2>
+        <h3>Query</h3>
+
+        <p style="border: 2px solid black; padding: 10px;">
+            create table train(trainno varchar2(5) , name varchar2(10) , startplace varchar2(10) , destination 
+            varchar2(10));<br>   
+<br>
+            create table availability(trainno varchar2(5) , class varchar2(5) , startplace varchar2(10) , 
+            destination varchar2(10) , seats number(3)); <br>
+<br>
+ 
+            create view sleeper as select trainno ,startplace , destination from train; <br>
+            
+<br>
+
+            a)&nbsp; 
+            insert into sleeper values('RJD16','Bangalore','Hubli');   <br>
+              insert into sleeper values('RJD17','Bangalore','Dharwad'); <br>  
+              insert into sleeper values('RJD18','Bangalore','Mysore');  <br> 
+              insert into sleeper values('KKE55','Bangalore','Udupi');  <br> 
+              insert into sleeper values('KKE56','Bangalore','Belgaum');  <br> 
+              insert into sleeper values('KKE57','Bangalore','Tumkur'); <br>   
+<br>
+                 1.&nbsp;   update sleeper set destination='Mangalore' where Trainno='RJD16'; <br>
+                 2. &nbsp;     delete from sleeper where trainno='KKE55'; <br>
+<br>
+             b)&nbsp; create view details as select t.trainno , t.name , a.class from train t , availability a;  <br>
+
+            c)&nbsp; create view totalseats as select trainno , startplace from availability;  <br>
+
+                 1. &nbsp; insert into totalseats values('RJD17','Bangalore'); <br>
+                 insert into totalseats values('RJD18','Mysore'); <br>  
+                 insert into totalseats values('JNS8','Bangalore'); <br>
+                 insert into totalseats values('RJD19','Bangalore');   <br>          
+                   insert into totalseats values('JNS9','Mangalore');  <br>
+<br>
+                   insert into totalseats values('RJD20','Bangalore'); <br>  
+                   insert into totalseats values('JNS10','Mangalore');  <br> 
+                   insert into totalseats values('RJD21','Tumkur');  <br> 
+                   insert into totalseats values('RJD22','Mangalore');<br>  
+<br>
+                   2.&nbsp;  update totalseats set startplace = 'Hubli' where trainno='JNS8'; <br>
+                <br>   3.&nbsp;delete from totalseats where trainno='RJD22';    <br>
+<br>
+            d)&nbsp; Rename sleeper to sleeperclass;  <br>
+            e)&nbsp; Drop view details; <br>
+
+        </p>
+        <h1>pl/SQL</h1>
+        <h2>6. Write a PL/SQL function to find the factorial of the given number using recursion </h2>
+         <h3>Query</h3>
+
+         <p style="border: 2px solid black; padding: 10px;">
+         &nbsp;&nbsp;   create or replace function fact(a number)return number <br>
+          &nbsp;&nbsp;  is  <br> 
+ &nbsp;&nbsp;   Begin <br>  
+  &nbsp;&nbsp;  If(a=0) then   <br>
+  &nbsp;&nbsp;  return 1;  <br> 
+  &nbsp;&nbsp;  else   <br>
+  &nbsp;&nbsp;  return(a*fact(a-1));  <br> 
+  &nbsp;&nbsp;  end if;  <br> 
+  &nbsp;&nbsp;  end; <br>
+   &nbsp;&nbsp; /<br>
+  &nbsp;&nbsp; Declare <br>  
+   &nbsp;&nbsp; a number;  <br> 
+   &nbsp;&nbsp; Begin   <br>
+  &nbsp;&nbsp;  a:=&a; <br>  
+   &nbsp;&nbsp; dbms_output.put_line('factorial is='||fact(a)); <br>
+   &nbsp;&nbsp; end;<br>
+   &nbsp;&nbsp; /<br>
+         </p>
+
+         <div style=" border: 2px dotted black; padding: 10px;width: 130px;">
+            OUTPUT  <br>
+            Enter value for a: 5 <br>
+            old 4: a:=&a;<br> new 
+            4: a:=5;<br> factorial 
+            is=120
+         </div>
+        <h2>Lab program-7  </h2>
+        <h3>Given the table Employee (empno, name, salary)  
+            Write a cursor in PL/SQL to select the five highest paid employees from the table Code:  </h3>
+<p style="border: 2px solid black; padding: 10px;">
+
+  &nbsp;&nbsp; &nbsp;  Create table employee (empno number(5), name varchar2(20), salary number(5)); <br>
+    <br>
+    <br>
+   &nbsp;&nbsp; &nbsp; insert into employee values (100, 'Rakesh', 20000);  <br>
+    &nbsp;&nbsp; &nbsp;insert into employee values (101, 'Akshay', 22000);  <br>
+    &nbsp;&nbsp; &nbsp;insert into employee values (102, 'Raju', 23000); <br>
+   &nbsp;&nbsp; &nbsp; insert into employee values (103, 'Anuitha', 170) ; <br>
+   &nbsp;&nbsp; &nbsp; insert into employee values (104, ' Shashikala ', 19000); <br> 
+   &nbsp;&nbsp; &nbsp; insert into employee values ( 105, 'Susheela ', 25000); <br> 
+   &nbsp;&nbsp; &nbsp; insert into employee values (106, 'Anupama', 27000); <br> 
+    <br>
+    <br>
+        &nbsp;&nbsp; &nbsp;    declare <br>
+        &nbsp;&nbsp; &nbsp;    cursor emp is select name, salary from employee order by salary desc; <br>
+        &nbsp;&nbsp; &nbsp;    begin <br>
+        &nbsp;&nbsp; &nbsp;    for i in emp <br>
+        &nbsp;&nbsp; &nbsp;    loop <br>
+       &nbsp;&nbsp; &nbsp;     if emp% rowcount<=5 then <br>
+       &nbsp;&nbsp; &nbsp;     dbms_output.put_line(i.name||' '||i.salary); <br>
+        &nbsp;&nbsp; &nbsp;    end if; <br>
+        &nbsp;&nbsp; &nbsp;    end loop; <br>
+        &nbsp;&nbsp; &nbsp;    end; <br>
+        &nbsp;&nbsp; &nbsp;    / <br>
+        &nbsp;&nbsp; &nbsp;    set serveroutput on <br>
+        &nbsp;&nbsp; &nbsp;    /<br>
+            
+              
+        </p>
+      <div style=" border: 2px dotted black; padding: 10px;width: 130px;">
+        Output:  <br> 
+Anupana    27888  <br>
+Susheela   25800 <br> 
+Raju   
+23000   
+<br>   
+Akshay     22008 <br>
+      </div>
+
+<h2>8. Write a function in PL/SQL to find the total number of movies in total. </h2>
+<h3>program</h3>
+<p style="border: 2px solid black; padding: 10px;">
+
+  &nbsp; &nbsp;&nbsp; create table movies(mid number(3),title varchar2(10), languag varchar2(10)); <br>
+
+   &nbsp; &nbsp;insert into movies values(100,'AAA','Kannada');<br>
+   &nbsp;&nbsp; insert into movies values(101,'BBB','Kannada'); <br> 
+   &nbsp;&nbsp; insert into movies values(102,'CCC','Kannada'); <br>
+<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create or replace function moviesf<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return number<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; is<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total number(2):=0; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; select count(*) into total from movies; <br>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  return total;  <br>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  end;  <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; / <br>
+<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Declare<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n number; <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n:=moviesf(); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dbms_output.put_line('no of movies ='   ||n ); <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end; <br>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  /<br>
+
+
+
+</p>
+
+<div style=" border: 2px dotted black; padding: 10px;width: 130px;" >
+
+    
+    OUTPUT  <br>
+    Table created.  <br>
+    1 row created.  <br>
+    1 row created.  <br>
+    1 row created.  <br>
+    no of movies =3  <br>
+    
+</div>
+<h2>9. Given the table customer (cid , name , address)  </h2>
+<h3>Write a PL/SQL program which asks customer id , if the user enters invalid id then the exception 
+    invalid-id displayed </h3>
+
+
+    <p style="border: 2px solid black; padding: 10px;">
+
+        create table customer ( cid number(3) , name varchar2(10) , address varchar2(10));<br>  
+<br>
+        Insert into customer values(100 , 'Rakesh' , 'Tumkur'); <br>
+        Insert into customer values(101 , 'Akshay' , 'Bangalore');  <br>
+        Insert into customer values(102 , 'Komala' ,  'Mysore');  <br>
+        Insert into customer values(103 , 'Roshan' , 'Mandya');  <br>
+        Insert into customer values(104 , 'Ajay' ,  'Mangalore');  <br>
+        Insert into customer values(105 , 'Swathi' , 'Mysore'); <br>
+<br>
+<br>
+       &nbsp; &nbsp; &nbsp; &nbsp;  Declare <br>
+     &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  c_id customer.cid%type:=0; <br>
+<br>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; c_name customer.name%type; <br>
+        <br>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; c_address customer.address%type; <br>
+<br>
+         &nbsp; &nbsp; &nbsp; &nbsp;Begin  <br>
+       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  c_id:=&c_id;  <br>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Select name , address into c_name , c_address from customer where cid=c_id;  <br>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dbms_output.put_line('Name='||c_name);  <br>
+       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  dbms_output.put_line('Address='||c_address);<br>
+       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Exception  when NO_DATA_FOUND then   <br>
+       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  dbms_output.put_line('Invalid Customer-ID');<br>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; end;  <br>
+       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  / <br>
+
+
+
+    </p>
+
+<div style=" border: 2px dotted black; padding: 10px;width: 150px;">
+  <b>  OUTPUT </b> <br>
+Table created.<br>  
+1 row created. <br> 
+1 row created.  <br>
+1 row created. <br> 
+1 row created.  <br>
+1 row created. <br> 
+1 row created.<br>
+ Enter value for c_id: 104<br>
+  old 6: c_id:=&c_id;<br>
+   new 6: c_id:=104;  <br>
+Name=Ajay  <br>
+Address=Mangalore  <br>
+</div>
+
+        </body>
+</html>
